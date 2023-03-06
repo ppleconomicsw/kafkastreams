@@ -22,14 +22,38 @@ dependencies {
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.1-jre'
+    implementation 'com.google.guava:guava:31.1-jre'
+    implementation 'com.github.javafaker:javafaker:1.0.2'
+    implementation group: 'org.apache.kafka', name: 'kafka-streams', version: '3.4.0'
+    implementation 'org.apache.kafka:kafka-clients:3.4.0'
 }
 
 application {
     // Define the main class for the application.
-    mainClass = 'com.kafkastreams.ks1.App'
+    mainClass = 'com.kafkastreams.ks1.Ks1'
 }
 
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+}
+
+
+
+tasks.register('m', JavaExec) {
+    mainClass = 'com.kafkaplay.ks2.ks2'
+    classpath sourceSets.main.runtimeClasspath
+    args=['configuration/dev.properties']
+}
+
+tasks.register('CreateDirectory') {
+    // Store target directory into a variable to avoid project reference in the configuration cache
+    // def directory = file("images")
+
+    doLast {
+        mkdir "$projectDir/src/main/json"
+        mkdir "$projectDir/configuration"
+        mkdir "$projectDir/scripts"
+        mkdir "$projectDir/src/main/resources/json"
+    }
 }
