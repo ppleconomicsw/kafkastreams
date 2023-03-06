@@ -41,7 +41,13 @@ tasks.named('test') {
 
 
 tasks.register('m', JavaExec) {
-    mainClass = 'com.kafkaplay.ks2.ks2'
+    mainClass = 'com.kafkastreams.ks1.StringProducer'
+    classpath sourceSets.main.runtimeClasspath
+    args=['configuration/dev.properties']
+}
+
+tasks.register('s', JavaExec) {
+    mainClass = 'com.kafkastreams.ks1.Ks1'
     classpath sourceSets.main.runtimeClasspath
     args=['configuration/dev.properties']
 }
